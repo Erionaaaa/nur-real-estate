@@ -364,9 +364,8 @@ app.get("/api/admin/properties", async (req, res) => {
 // ADMIN API - ADD PROPERTY
 // ============================
 app.post("/api/admin/properties", async (req, res) => {
+  const { title, location, type, category, price_text, cover_image, description } = req.body;
   try {
-    const { title, location, type, category, price_text, cover_image, description } = req.body;
-
     if (!title || !location || !type || !category || !price_text) {
       return res.status(400).json({ message: "Të dhëna të detyrueshme mungojnë" });
     }
@@ -411,9 +410,9 @@ app.post("/api/admin/properties", async (req, res) => {
 // ADMIN API - UPDATE PROPERTY
 // ============================
 app.put("/api/admin/properties/:id", async (req, res) => {
+  const { title, location, type, category, price_text, cover_image, description } = req.body;
   try {
     const { id } = req.params;
-    const { title, location, type, category, price_text, cover_image, description } = req.body;
 
     if (!title || !location || !type || !category || !price_text) {
       return res.status(400).json({ message: "Të dhëna të detyrueshme mungojnë" });
