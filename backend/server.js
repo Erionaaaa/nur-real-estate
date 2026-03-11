@@ -50,6 +50,160 @@ let offlineProperties = [
     description:
       "Parcella me pozicion shumë të mirë pranë Liqenit të Batllavës, e përshtatshme për investime turistike.",
   },
+  {
+    id: 4,
+    title: "Banesë me qira",
+    location: "Prishtinë, Rr. Fehmi Agani",
+    type: "rent",
+    category: "banese",
+    badge: "Me qira",
+    price_text: "650€/muaj",
+    cover_image: "/nur/Banese.png",
+    description: "",
+  },
+  {
+    id: 5,
+    title: "Tokë për Shitje në Mramor",
+    location: "Mramor, Prishtinë",
+    type: "sale",
+    category: "troje",
+    badge: "Në shitje",
+    price_text: "1,900€/ari",
+    cover_image: "/nur/toka.png",
+    description: "",
+  },
+  {
+    id: 6,
+    title: "Ofrohen për shitje dy villa",
+    location: "Makresh, Artanë",
+    type: "sale",
+    category: "villa",
+    badge: "Në shitje",
+    price_text: "225,000€",
+    cover_image: "/nur/villa.png",
+    description: "",
+  },
+  {
+    id: 7,
+    title: "Tokë në shitje",
+    location: "Kushevicë",
+    type: "sale",
+    category: "troje",
+    badge: "Në shitje",
+    price_text: "800€/ari",
+    cover_image: "/nur/225ari.png",
+    description: "",
+  },
+  {
+    id: 8,
+    title: "3 shtëpi në shitje",
+    location: "Veternik, Prishtinë",
+    type: "sale",
+    category: "shtepi",
+    badge: "Në shitje",
+    price_text: "Çmimi me marrëveshje",
+    cover_image: "/nur/3 shtepi.png",
+    description: "",
+  },
+  {
+    id: 9,
+    title: "2 banesa në shitje",
+    location: "Rruga A, Prishtinë",
+    type: "sale",
+    category: "banese",
+    badge: "Në shitje",
+    price_text: "1,100€/m²",
+    cover_image: "/nur/dybanesa.png",
+    description: "",
+  },
+  {
+    id: 10,
+    title: "Tokë në Shitje - Koliq",
+    location: "Koliq, Prishtinë",
+    type: "sale",
+    category: "troje",
+    badge: "Në shitje",
+    price_text: "2500€/ari",
+    cover_image: "/nur/Tokë në Shitje - Koliq.png",
+    description: "",
+  },
+  {
+    id: 11,
+    title: "Tokë në Shitje - Makovc",
+    location: "Makovc, Prishtinë",
+    type: "sale",
+    category: "troje",
+    badge: "Në shitje",
+    price_text: "3500€/ari",
+    cover_image: "/nur/rruges per makovc - Copy.png",
+    description: "",
+  },
+  {
+    id: 12,
+    title: "Hoteli ne shitje-Golem,Albania",
+    location: "Golem, Albania",
+    type: "sale",
+    category: "shtepi",
+    badge: "Në shitje",
+    price_text: "2,000,000€.",
+    cover_image: "/nur/Hoteli ne golem.png",
+    description: "",
+  },
+  {
+    id: 13,
+    title: "Shtepia ne shitje",
+    location: "Prishtine, Kosove",
+    type: "sale",
+    category: "shtepi",
+    badge: "Në shitje",
+    price_text: "550.000€.",
+    cover_image: "/nur/shtepiaveternik.png",
+    description: "",
+  },
+  {
+    id: 14,
+    title: "Trualli në shitje në Llapnasellë",
+    location: "Prishtine, Kosove",
+    type: "sale",
+    category: "troje",
+    badge: "Në shitje",
+    price_text: "7000€/ari.",
+    cover_image: "/nur/trualli në Llapnasellë.png",
+    description: "",
+  },
+  {
+    id: 15,
+    title: "Trualli në shitje në Prishtinë",
+    location: "Prishtine, Kosove",
+    type: "sale",
+    category: "troje",
+    badge: "Në shitje",
+    price_text: "10.000€/ari.",
+    cover_image: "/nur/truallneprishtine.png",
+    description: "",
+  },
+  {
+    id: 16,
+    title: "Trualli në shitje Bardhosh",
+    location: "Prishtine, Kosove",
+    type: "sale",
+    category: "troje",
+    badge: "Në shitje",
+    price_text: "6000€/ari.",
+    cover_image: "/nur/tokenebardhosh.png",
+    description: "",
+  },
+  {
+    id: 17,
+    title: "Shtepia ne shitje ne Prishtine",
+    location: "Prishtine, Kosove",
+    type: "sale",
+    category: "shtepi",
+    badge: "Në shitje",
+    price_text: "Cmimi me maareveshje",
+    cover_image: "/nur/shtepianebregunediellit.jpg",
+    description: "",
+  },
 ];
 
 // ====== paths for ES modules ======
@@ -99,40 +253,8 @@ app.get("/api/properties", async (req, res) => {
     res.json(rows);
   } catch (err) {
     console.error("Error fetching properties:", err);
-    // Fallback to mock data if database unavailable
-    const mockProperties = [
-      {
-        id: 1,
-        title: "Shtëpi për Shitje në Novobërdë",
-        location: "Novobërdë",
-        type: "sale",
-        category: "shtepi",
-        badge: "Në shitje",
-        price_text: "115,000 €",
-        cover_image: "/nur/Shtepia  ne shitje.png"
-      },
-      {
-        id: 2,
-        title: "Lëshohet me qira hapësira",
-        location: "Prishtinë, Dardani",
-        type: "rent",
-        category: "lokal",
-        badge: "Me qira",
-        price_text: "700€/muaj",
-        cover_image: "/nur/lokali.png"
-      },
-      {
-        id: 3,
-        title: "Shitet toka në Orllan",
-        location: "Orllan, Batllavë",
-        type: "sale",
-        category: "troje",
-        badge: "Në shitje",
-        price_text: "3,500 €/ari",
-        cover_image: "/nur/15 ari.png"
-      }
-    ];
-    res.json(mockProperties);
+    offlineMode = true;
+    res.json([...offlineProperties].sort((a, b) => a.id - b.id));
   }
 });
 
@@ -166,51 +288,15 @@ app.get("/api/properties/:id", async (req, res) => {
     });
   } catch (err) {
     console.error("Error fetching property details:", err);
-    // Fallback to mock data
-    const mockProperties = {
-      "1": {
-        id: 1,
-        title: "Shtëpi për Shitje në Novobërdë",
-        location: "Novobërdë",
-        type: "sale",
-        category: "shtepi",
-        badge: "Në shitje",
-        price_text: "115,000 €",
-        cover_image: "/nur/Shtepia  ne shitje.png",
-        description: "Shtëpi e rehatshme në Novobërdë, e përshtatshme për familje, me sipërfaqe të bollshme dhe oborr.",
-        images: ["/nur/Shtepia  ne shitje.png"],
-        meta: ["4.8 ari", "Sallon", "3 dhoma gjumi", "2 banjo", "Paradhome"]
-      },
-      "2": {
-        id: 2,
-        title: "Lëshohet me qira hapësira",
-        location: "Prishtinë, Dardani",
-        type: "rent",
-        category: "lokal",
-        badge: "Me qira",
-        price_text: "700€/muaj",
-        cover_image: "/nur/lokali.png",
-        description: "Hapësirë biznesi në një nga lagjet më të kërkuara të Prishtinës, ideale për zyre apo lokale shërbimi.",
-        images: ["/nur/lokali.png"],
-        meta: ["100 m² open space", "Ngrohje qendrore", "Rreth 115 m² neto"]
-      },
-      "3": {
-        id: 3,
-        title: "Shitet toka në Orllan",
-        location: "Orllan, Batllavë",
-        type: "sale",
-        category: "troje",
-        badge: "Në shitje",
-        price_text: "3,500 €/ari",
-        cover_image: "/nur/15 ari.png",
-        description: "Parcella me pozicion shumë të mirë pranë Liqenit të Batllavës, e përshtatshme për investime turistike.",
-        images: ["/nur/15 ari.png"],
-        meta: ["Parcelë afër liqenit", "Potencial për vila / turizëm", "15 ari"]
-      }
-    };
-    const property = mockProperties[id];
-    if (!property) return res.status(404).json({ message: "Not found" });
-    res.json(property);
+    offlineMode = true;
+    const numericId = Number(req.params.id);
+    const base = offlineProperties.find(p => p.id === numericId);
+    if (!base) return res.status(404).json({ message: "Not found" });
+    res.json({
+      ...base,
+      images: [base.cover_image].filter(Boolean),
+      meta: [],
+    });
   }
 });
 
