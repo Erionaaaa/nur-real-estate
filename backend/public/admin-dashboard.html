@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard | NUR Real Estate</title>
+  <meta name="robots" content="noindex,nofollow" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="admin-styles.css" />
 </head>
@@ -174,6 +175,44 @@
           <button type="submit" class="btn btn-primary">Ruaj Pronën</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- MODAL PËR DETAJET E MESAZHIT -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Detajet e Mesazhit</h2>
+        <button class="close-btn" id="contactCloseBtn">&times;</button>
+      </div>
+
+      <div class="property-form" style="display: grid; gap: 12px;">
+        <div class="form-group">
+          <label>Emri</label>
+          <input type="text" id="contactName" disabled />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="text" id="contactEmail" disabled />
+          </div>
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="text" id="contactPhone" disabled />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Data</label>
+          <input type="text" id="contactDate" disabled />
+        </div>
+        <div class="form-group">
+          <label>Mesazhi</label>
+          <textarea id="contactMessage" rows="8" disabled></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="contactCloseBtn2">Mbyll</button>
+        </div>
+      </div>
     </div>
   </div>
 

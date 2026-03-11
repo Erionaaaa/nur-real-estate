@@ -8,12 +8,73 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ============================
+// OFFLINE FALLBACK (when DB unavailable)
+// ============================
+let offlineMode = false;
+let offlineContacts = [];
+let offlineProperties = [
+  {
+    id: 1,
+    title: "Shtëpi për Shitje në Novobërdë",
+    location: "Novobërdë",
+    type: "sale",
+    category: "shtepi",
+    badge: "Në shitje",
+    price_text: "115,000 €",
+    cover_image: "/nur/Shtepia  ne shitje.png",
+    description:
+      "Shtëpi e rehatshme në Novobërdë, e përshtatshme për familje, me sipërfaqe të bollshme dhe oborr.",
+  },
+  {
+    id: 2,
+    title: "Lëshohet me qira hapësira",
+    location: "Prishtinë, Dardani",
+    type: "rent",
+    category: "lokal",
+    badge: "Me qira",
+    price_text: "700€/muaj",
+    cover_image: "/nur/lokali.png",
+    description:
+      "Hapësirë biznesi në një nga lagjet më të kërkuara të Prishtinës, ideale për zyre apo lokale shërbimi.",
+  },
+  {
+    id: 3,
+    title: "Shitet toka në Orllan",
+    location: "Orllan, Batllavë",
+    type: "sale",
+    category: "troje",
+    badge: "Në shitje",
+    price_text: "3,500 €/ari",
+    cover_image: "/nur/15 ari.png",
+    description:
+      "Parcella me pozicion shumë të mirë pranë Liqenit të Batllavës, e përshtatshme për investime turistike.",
+  },
+];
+
 // ====== paths for ES modules ======
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ====== serve frontend static files ======
-app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  express.static(path.join(__dirname, "public"), {
+    etag: true,
+    maxAge: "30d",
+    setHeaders: (res, filePath) => {
+      // HTML should not be aggressively cached
+      if (filePath.endsWith(".html")) {
+        res.setHeader("Cache-Control", "no-cache");
+        return;
+      }
+
+      // Long cache for static assets
+      if (/\.(css|js|png|jpg|jpeg|webp|svg|ico|woff2?)$/i.test(filePath)) {
+        res.setHeader("Cache-Control", "public, max-age=2592000, immutable");
+      }
+    },
+  })
+);
 
 // Root -> index.html
 app.get("/", (req, res) => {
@@ -169,9 +230,30 @@ app.post("/api/contacts", async (req, res) => {
   } catch (err) {
     console.error("Error saving contact:", err);
     // Fallback success even if database unavailable
+    offlineMode = true;
     console.log("Contact (fallback):", { name, email, phone, message });
+    const id = offlineContacts.length
+      ? Math.max(...offlineContacts.map(c => c.id)) + 1
+      : 1;
+    offlineContacts.unshift({
+      id,
+      name,
+      email,
+      phone,
+      message,
+      created_at: new Date().toISOString(),
+    });
     res.json({ success: true, message: "Mesazhi u pranua (offline mode)" });
   }
+});
+
+// ============================
+// ADMIN API - BASIC AUTH GUARD (TESTING ONLY)
+// ============================
+app.use("/api/admin", (req, res, next) => {
+  const token = req.header("x-admin-token");
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
+  next();
 });
 
 // ============================
@@ -180,14 +262,15 @@ app.post("/api/contacts", async (req, res) => {
 app.get("/api/admin/properties", async (req, res) => {
   try {
     const [rows] = await db.query(`
-      SELECT id, title, location, type, category, price_text, cover_image
+      SELECT id, title, location, type, category, price_text, cover_image, description
       FROM properties
       ORDER BY id DESC
     `);
     res.json(rows);
   } catch (err) {
     console.error("Error fetching properties:", err);
-    res.status(500).json({ message: "Server error" });
+    offlineMode = true;
+    res.json([...offlineProperties].sort((a, b) => b.id - a.id));
   }
 });
 
@@ -219,7 +302,22 @@ app.post("/api/admin/properties", async (req, res) => {
     res.json({ success: true, id: result.insertId, message: "Prona u shtua me sukses" });
   } catch (err) {
     console.error("Error adding property:", err);
-    res.status(500).json({ message: "Server error" });
+    offlineMode = true;
+    const id = offlineProperties.length
+      ? Math.max(...offlineProperties.map(p => p.id)) + 1
+      : 1;
+    offlineProperties.push({
+      id,
+      title,
+      location,
+      type,
+      category,
+      badge: type === "sale" ? "Në shitje" : "Me qira",
+      price_text,
+      cover_image: cover_image || "nur/default.png",
+      description: description || "",
+    });
+    res.json({ success: true, id, message: "Prona u shtua me sukses (offline mode)" });
   }
 });
 
@@ -253,7 +351,22 @@ app.put("/api/admin/properties/:id", async (req, res) => {
     res.json({ success: true, message: "Prona u përditësua me sukses" });
   } catch (err) {
     console.error("Error updating property:", err);
-    res.status(500).json({ message: "Server error" });
+    offlineMode = true;
+    const numericId = Number(req.params.id);
+    const idx = offlineProperties.findIndex(p => p.id === numericId);
+    if (idx === -1) return res.status(404).json({ message: "Not found" });
+    offlineProperties[idx] = {
+      ...offlineProperties[idx],
+      title,
+      location,
+      type,
+      category,
+      badge: type === "sale" ? "Në shitje" : "Me qira",
+      price_text,
+      cover_image: cover_image || "nur/default.png",
+      description: description || "",
+    };
+    res.json({ success: true, message: "Prona u përditësua me sukses (offline mode)" });
   }
 });
 
@@ -271,7 +384,10 @@ app.delete("/api/admin/properties/:id", async (req, res) => {
     res.json({ success: true, message: "Prona u fshi me sukses" });
   } catch (err) {
     console.error("Error deleting property:", err);
-    res.status(500).json({ message: "Server error" });
+    offlineMode = true;
+    const numericId = Number(req.params.id);
+    offlineProperties = offlineProperties.filter(p => p.id !== numericId);
+    res.json({ success: true, message: "Prona u fshi me sukses (offline mode)" });
   }
 });
 
@@ -288,7 +404,8 @@ app.get("/api/admin/contacts", async (req, res) => {
     res.json(rows);
   } catch (err) {
     console.error("Error fetching contacts:", err);
-    res.status(500).json({ message: "Server error" });
+    offlineMode = true;
+    res.json(offlineContacts);
   }
 });
 
@@ -304,7 +421,10 @@ app.delete("/api/admin/contacts/:id", async (req, res) => {
     res.json({ success: true, message: "Mesazhi u fshi me sukses" });
   } catch (err) {
     console.error("Error deleting contact:", err);
-    res.status(500).json({ message: "Server error" });
+    offlineMode = true;
+    const numericId = Number(req.params.id);
+    offlineContacts = offlineContacts.filter(c => c.id !== numericId);
+    res.json({ success: true, message: "Mesazhi u fshi me sukses (offline mode)" });
   }
 });
 

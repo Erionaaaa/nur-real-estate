@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         
         card.innerHTML = `
           <div class="property-image">
-            <img src="${prop.cover_image}" alt="${prop.title}" />
+            <img src="${prop.cover_image}" alt="${prop.title}" loading="lazy" decoding="async" />
             <span class="property-badge ${badgeClass}">${badgeText}</span>
             <span class="property-id">#${prop.id}</span>
           </div>
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       
       const images = property.images && property.images.length > 0 ? property.images : [property.cover_image];
       const thumbsHtml = images.map((img, idx) => 
-        `<img src="${img}" alt="Foto ${idx + 1}" class="property-thumb ${idx === 0 ? 'active' : ''}" data-full="${img}" />`
+        `<img src="${img}" alt="Foto ${idx + 1}" loading="lazy" decoding="async" class="property-thumb ${idx === 0 ? 'active' : ''}" data-full="${img}" />`
       ).join("");
       
       const metaHtml = property.meta && property.meta.length > 0 
@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <div class="property-details-gallery">
             <div class="property-details-image">
               <button class="gallery-nav prev" type="button">‹</button>
-              <img id="property-main-image" src="${images[0]}" alt="${property.title}" />
+              <img id="property-main-image" src="${images[0]}" alt="${property.title}" decoding="async" fetchpriority="high" />
               <button class="gallery-nav next" type="button">›</button>
             </div>
             <div class="property-gallery-thumbs">

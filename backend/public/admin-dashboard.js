@@ -18,6 +18,17 @@ let allProperties = [];
 let allContacts = [];
 let currentEditId = null;
 
+const API_BASE =
+  window.location.origin.includes("localhost:5000") ||
+  window.location.origin.includes("127.0.0.1:5000")
+    ? ""
+    : "http://localhost:5000";
+
+function getAdminHeaders() {
+  const token = localStorage.getItem("adminToken");
+  return token ? { "x-admin-token": token } : {};
+}
+
 // Elements
 const propertyModal = document.getElementById("propertyModal");
 const propertyForm = document.getElementById("propertyForm");
@@ -29,6 +40,11 @@ const adminUser = document.getElementById("adminUser");
 const pageTitle = document.getElementById("pageTitle");
 const propertiesTable = document.getElementById("propertiesTable");
 const contactsTable = document.getElementById("contactsTable");
+
+// Contact modal elements
+const contactModal = document.getElementById("contactModal");
+const contactCloseBtn = document.getElementById("contactCloseBtn");
+const contactCloseBtn2 = document.getElementById("contactCloseBtn2");
 
 // Navigation
 const navItems = document.querySelectorAll(".nav-item");
@@ -89,7 +105,9 @@ navItems.forEach(item => {
 // =====================================
 async function loadProperties() {
   try {
-    const response = await fetch("/api/admin/properties");
+    const response = await fetch(`${API_BASE}/api/admin/properties`, {
+      headers: { ...getAdminHeaders() }
+    });
     if (!response.ok) throw new Error("Network error");
     allProperties = await response.json();
     renderPropertiesTable();
@@ -133,7 +151,9 @@ function renderPropertiesTable() {
 // =====================================
 async function loadContacts() {
   try {
-    const response = await fetch("/api/admin/contacts");
+    const response = await fetch(`${API_BASE}/api/admin/contacts`, {
+      headers: { ...getAdminHeaders() }
+    });
     if (!response.ok) throw new Error("Network error");
     allContacts = await response.json();
     renderContactsTable();
@@ -154,15 +174,36 @@ function renderContactsTable() {
       <td>${contact.name}</td>
       <td>${contact.email}</td>
       <td>${contact.phone || '-'}</td>
-      <td>${contact.message.substring(0, 50)}...</td>
+      <td>${(contact.message || "").length > 60 ? `${contact.message.substring(0, 60)}...` : (contact.message || "")}</td>
       <td>${new Date(contact.created_at).toLocaleDateString('sq-AL')}</td>
       <td class="actions">
+        <button class="btn-icon btn-edit" onclick="viewContact(${contact.id})" title="Shiko detajet">
+          <i class="fa-solid fa-eye"></i>
+        </button>
         <button class="btn-icon btn-delete" onclick="deleteContact(${contact.id})">
           <i class="fa-solid fa-trash"></i>
         </button>
       </td>
     </tr>
   `).join("");
+}
+
+// =====================================
+// VIEW CONTACT DETAILS
+// =====================================
+function viewContact(id) {
+  const contact = allContacts.find(c => c.id === id);
+  if (!contact) return;
+
+  document.getElementById("contactName").value = contact.name || "";
+  document.getElementById("contactEmail").value = contact.email || "";
+  document.getElementById("contactPhone").value = contact.phone || "-";
+  document.getElementById("contactDate").value = contact.created_at
+    ? new Date(contact.created_at).toLocaleString("sq-AL")
+    : "";
+  document.getElementById("contactMessage").value = contact.message || "";
+
+  contactModal.style.display = "block";
 }
 
 // =====================================
@@ -205,8 +246,9 @@ async function deleteProperty(id) {
   if (!confirm("A jeni i sigurt që doni të fshini këtë pronë?")) return;
 
   try {
-    const response = await fetch(`/api/admin/properties/${id}`, {
-      method: "DELETE"
+    const response = await fetch(`${API_BASE}/api/admin/properties/${id}`, {
+      method: "DELETE",
+      headers: { ...getAdminHeaders() }
     });
     if (!response.ok) throw new Error("Network error");
 
@@ -225,8 +267,9 @@ async function deleteContact(id) {
   if (!confirm("A jeni i sigurt që doni të fshini këtë mesazh?")) return;
 
   try {
-    const response = await fetch(`/api/admin/contacts/${id}`, {
-      method: "DELETE"
+    const response = await fetch(`${API_BASE}/api/admin/contacts/${id}`, {
+      method: "DELETE",
+      headers: { ...getAdminHeaders() }
     });
     if (!response.ok) throw new Error("Network error");
 
@@ -249,9 +292,20 @@ cancelBtn.addEventListener("click", () => {
   propertyModal.style.display = "none";
 });
 
+contactCloseBtn?.addEventListener("click", () => {
+  contactModal.style.display = "none";
+});
+
+contactCloseBtn2?.addEventListener("click", () => {
+  contactModal.style.display = "none";
+});
+
 window.addEventListener("click", (e) => {
   if (e.target === propertyModal) {
     propertyModal.style.display = "none";
+  }
+  if (e.target === contactModal) {
+    contactModal.style.display = "none";
   }
 });
 
@@ -280,16 +334,16 @@ propertyForm.addEventListener("submit", async (e) => {
     let response;
     if (currentEditId) {
       // UPDATE
-      response = await fetch(`/api/admin/properties/${currentEditId}`, {
+      response = await fetch(`${API_BASE}/api/admin/properties/${currentEditId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...getAdminHeaders() },
         body: JSON.stringify(propData)
       });
     } else {
       // CREATE
-      response = await fetch("/api/admin/properties", {
+      response = await fetch(`${API_BASE}/api/admin/properties`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...getAdminHeaders() },
         body: JSON.stringify(propData)
       });
     }

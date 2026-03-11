@@ -18,6 +18,17 @@ let allProperties = [];
 let allContacts = [];
 let currentEditId = null;
 
+const API_BASE =
+  window.location.origin.includes("localhost:5000") ||
+  window.location.origin.includes("127.0.0.1:5000")
+    ? ""
+    : "http://localhost:5000";
+
+function getAdminHeaders() {
+  const token = localStorage.getItem("adminToken");
+  return token ? { "x-admin-token": token } : {};
+}
+
 // Elements
 const propertyModal = document.getElementById("propertyModal");
 const propertyForm = document.getElementById("propertyForm");
@@ -89,7 +100,9 @@ navItems.forEach(item => {
 // =====================================
 async function loadProperties() {
   try {
-    const response = await fetch("/api/admin/properties");
+    const response = await fetch(`${API_BASE}/api/admin/properties`, {
+      headers: { ...getAdminHeaders() }
+    });
     if (!response.ok) throw new Error("Network error");
     allProperties = await response.json();
     renderPropertiesTable();
@@ -133,7 +146,9 @@ function renderPropertiesTable() {
 // =====================================
 async function loadContacts() {
   try {
-    const response = await fetch("/api/admin/contacts");
+    const response = await fetch(`${API_BASE}/api/admin/contacts`, {
+      headers: { ...getAdminHeaders() }
+    });
     if (!response.ok) throw new Error("Network error");
     allContacts = await response.json();
     renderContactsTable();
@@ -205,8 +220,9 @@ async function deleteProperty(id) {
   if (!confirm("A jeni i sigurt që doni të fshini këtë pronë?")) return;
 
   try {
-    const response = await fetch(`/api/admin/properties/${id}`, {
-      method: "DELETE"
+    const response = await fetch(`${API_BASE}/api/admin/properties/${id}`, {
+      method: "DELETE",
+      headers: { ...getAdminHeaders() }
     });
     if (!response.ok) throw new Error("Network error");
 
@@ -225,8 +241,9 @@ async function deleteContact(id) {
   if (!confirm("A jeni i sigurt që doni të fshini këtë mesazh?")) return;
 
   try {
-    const response = await fetch(`/api/admin/contacts/${id}`, {
-      method: "DELETE"
+    const response = await fetch(`${API_BASE}/api/admin/contacts/${id}`, {
+      method: "DELETE",
+      headers: { ...getAdminHeaders() }
     });
     if (!response.ok) throw new Error("Network error");
 
@@ -280,16 +297,16 @@ propertyForm.addEventListener("submit", async (e) => {
     let response;
     if (currentEditId) {
       // UPDATE
-      response = await fetch(`/api/admin/properties/${currentEditId}`, {
+      response = await fetch(`${API_BASE}/api/admin/properties/${currentEditId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...getAdminHeaders() },
         body: JSON.stringify(propData)
       });
     } else {
       // CREATE
-      response = await fetch("/api/admin/properties", {
+      response = await fetch(`${API_BASE}/api/admin/properties`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...getAdminHeaders() },
         body: JSON.stringify(propData)
       });
     }
