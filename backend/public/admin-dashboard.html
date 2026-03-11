@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | NUR Real Estate</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="admin-styles.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <h2>NUR Admin</h2>
+        <p id="adminUser">admin</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="properties">
+          <i class="fa-solid fa-building"></i>
+          <span>Prona</span>
+        </a>
+        <a href="#" class="nav-item" data-section="contacts">
+          <i class="fa-solid fa-envelope"></i>
+          <span>Mesazhe</span>
+        </a>
+        <a href="#" class="nav-item" data-section="settings">
+          <i class="fa-solid fa-gear"></i>
+          <span>Cilësimet</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="logoutBtn" class="btn-logout">
+          <i class="fa-solid fa-sign-out-alt"></i>
+          Dil
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1 id="pageTitle">Menaxhimi i Pronave</h1>
+        <div class="header-actions">
+          <button id="addPropertyBtn" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Shtim Prona
+          </button>
+        </div>
+      </header>
+
+      <!-- PROPERTIES SECTION -->
+      <section id="properties-section" class="content-section active">
+        <div class="table-container">
+          <table class="properties-table">
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Titull</th>
+                <th>Lokacion</th>
+                <th>Çmim</th>
+                <th>Statusi</th>
+                <th>Aksione</th>
+              </tr>
+            </thead>
+            <tbody id="propertiesTable">
+              <tr>
+                <td colspan="6" style="text-align: center; padding: 40px;">Duke u ngarkuar...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CONTACTS SECTION -->
+      <section id="contacts-section" class="content-section">
+        <div class="table-container">
+          <table class="contacts-table">
+            <thead>
+              <tr>
+                <th>Emri</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>Mesazhi</th>
+                <th>Data</th>
+                <th>Aksione</th>
+              </tr>
+            </thead>
+            <tbody id="contactsTable">
+              <tr>
+                <td colspan="6" style="text-align: center; padding: 40px;">Duke u ngarkuar...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SETTINGS SECTION -->
+      <section id="settings-section" class="content-section">
+        <div class="settings-container">
+          <h3>Cilësimet e Sistemit</h3>
+          <p>Këtu mund të ndryshoni cilësimet e sistemit.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL PËR SHTIM/EDITIM PRONA -->
+  <div id="propertyModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Shtim Prona</h2>
+        <button class="close-btn">&times;</button>
+      </div>
+
+      <form id="propertyForm" class="property-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>ID (Automatik)</label>
+            <input type="text" id="propId" disabled />
+          </div>
+          <div class="form-group">
+            <label>Titull *</label>
+            <input type="text" id="propTitle" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Lokacion *</label>
+            <input type="text" id="propLocation" required />
+          </div>
+          <div class="form-group">
+            <label>Kategoria *</label>
+            <select id="propCategory" required>
+              <option value="">Zgjidh kategori</option>
+              <option value="shtepi">Shtëpi</option>
+              <option value="banese">Banesa</option>
+              <option value="lokal">Lokal</option>
+              <option value="troje">Troje</option>
+              <option value="villa">Villa</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Statusi *</label>
+            <select id="propType" required>
+              <option value="">Zgjidh statusin</option>
+              <option value="sale">Në shitje</option>
+              <option value="rent">Me qira</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Çmim *</label>
+            <input type="text" id="propPrice" placeholder="p.sh. 115,000 €" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Përshkrim</label>
+          <textarea id="propDescription" rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>URL Imazhi i Mbulimit</label>
+          <input type="text" id="propImage" placeholder="nur/image.png" />
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="cancelBtn">Anulo</button>
+          <button type="submit" class="btn btn-primary">Ruaj Pronën</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detajet e Prones | NUR Real Estate</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="nur/logo3.png" alt="NUR Real Estate" class="logo-img" />
+        <span class="logo-text">NUR REAL ESTATE</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html#properties">Prona</a>
+        <a href="index.html#why-us">Pse ne</a>
+        <a href="index.html#contact">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="property-details-page">
+    <div class="container">
+      <div id="details-content">
+     
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> NUR Real Estate. Të gjitha të drejtat e rezervuara.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Viti në footer
+      const yearEl = document.getElementById("year");
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+      // ID e pronave 
+      const properties = {
+        "1": {
+          title: "Shtëpi për Shitje në Novobërdë",
+          location: "Novobërdë",
+          price: "115,000 €",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/Shtepia  ne shitje.png"
+          ],
+          meta: ["4.8 ari", "Sallon", "tri dhoma gjumi", "dy banjo", "Paradhome"],
+          description:
+            "Shtëpi e rehatshme në Novobërdë, e përshtatshme për familje, me sipërfaqe të bollshme dhe oborr."
+        },
+        "2": {
+          title: "Hapësirë me qira në Dardani",
+          location: "Prishtinë, Dardani",
+          price: "700 € / muaj",
+          badge: "Me qira",
+          type: "rent",
+          images: [
+            "nur/lokali.png"
+          ],
+          meta: ["Open space", "100 m²", "Rreth 100 m² oborr", "Me bodrum"],
+          description:
+            "Hapësirë biznesi në një nga lagjet më të kërkuara të Prishtinës, ideale për zyre apo lokale shërbimi."
+        },
+        "3": {
+          title: "Tokë në shitje në Orllan, te liqeni i Batllavës",
+          location: "Orllan, Batllavë",
+          price: "3500 € për ari",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/15 ari.png"
+          ],
+          meta: ["Parcelë afër liqenit", "Potencial për vila / turizëm"],
+          description:
+            "Parcella me pozicion shumë të mirë pranë Liqenit të Batllavës, e përshtatshme për investime turistike."
+        },
+        "4": {
+          title: "Banesë me qira për zyre në qendër të Prishtinës",
+          location: "Prishtinë, Rr. Fehmi Agani",
+          price: "650 € / muaj + depozitë",
+          badge: "Me qira",
+          type: "rent",
+          images: [
+            "nur/Banese.png"
+          ],
+          meta: ["4 zyre", "1 banjo", "1 depo të vogël", "parking për 1 veturë."],
+          description:
+            "Banesë e adaptuar për zyre në një prej rrugëve më të njohura të Prishtinës, ideale për kompani dhe profesionistë."
+        },
+        "5": {
+          title: "Tokë për Shitje në Mramor",
+          location: "Mramor, Prishtinë",
+          price: "1900€/ari",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/toka.png"
+          ],
+          meta: ["120 ari", "Furnizim me ujë", "Rrymë elektrike", "Dokumentacion i rregullt"],
+          description:
+            "Parcelë e madhe toke në Mramor me infrastrukturë bazë të përfshirë, e përshtatshme për projekte afatgjata."
+        },
+        "6": {
+          title: "Dy villa në shitje në Makresh, Komuna e Artanës",
+          location: "Makresh, Artanë",
+          price: "225,000€",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/villa.png"
+          ],
+          meta: ["5 ari truall", "150 m²", "Lartësi mbidetare 1000 m"],
+          description:
+            "Dy villa të pozicionuara në një zonë të qetë malore, ideale për pushim dhe jetesë larg zhurmës së qytetit."
+        },
+        "7": {
+          title: "Tokë në shitje në fshatin Kushevicë",
+          location: "Kushevicë",
+          price: "800€/ari",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/225ari.png"
+          ],
+          meta: ["225 ari truall", "3 min larg Liqenit të Batllavës"],
+          description:
+            "Sipërfaqe e madhe toke me lokacion shumë atraktiv pranë Batllavës, e përshtatshme për projekte të ndryshme investive."
+        },
+        "8": {
+          title: "Tre shtëpi në shitje në Veternik",
+          location: "Veternik, Prishtinë",
+          price: "Çmimi me marrëveshje",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/3 shtepi.png"
+          ],
+          meta: ["Sallon dhe kuzhinë", "4 dhoma gjumi", "Garazhë me 2 depo dhe 1 tualet"],
+          description:
+            "Kompleks prej tre shtëpish pranë Spitalit Otrila, me kushte shumë të mira për banim familjar."
+        },
+        "9": {
+          title: "Dy banesa në shitje në Rrugën A",
+          location: "Rruga A, Prishtinë",
+          price: "1100€/m²",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/dybanesa.png"
+          ],
+          meta: ["90 m²", "2 banesa", "Ndriçim i mjaftueshëm"],
+          description:
+            "Dy banesa në një ndërtesë të re përgjatë Rrugës A, me organizim funksional dhe ndriçim të bollshëm natyral."
+        },
+        "10": {
+          title: "Tokë në Koliq",
+          location: "Koliq, Prishtinë",
+          price: "2500€/ari",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/Tokë në Shitje - Koliq.png"
+          ],
+          meta: ["Zonë e qetë", "2500 € për ari", "3–10 ari"],
+          description:
+            "Shitet tokë bujqësore me sipërfaqe 3–10 ari në fshatin Koliq, e përshtatshme për ndërtim ose kultivim."
+        },
+        "11": {
+          title: "Tokë në Llukar–Makovc",
+          location: "Makovc, Prishtinë",
+          price: "3500 € për ari",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/rruges per makovc - Copy.png",
+            "nur/Tokë në Shitje - Koliq.png",
+            "nur/225ari-3.jpg",
+            "nur/225ari-4.jpg"
+          ],
+          meta: ["2 parcela", "83 ari", "3500 € për ari"],
+          description:
+            "Trualli është i pozicionuar në një lokacion të përshtatshëm për banim, me një pamje të bukur natyrore."
+        },
+        "12": {
+          title: "Hotel në Golem",
+          location: "Golem, Albania",
+          price: "2.000.000 €",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/Hoteli ne golem.png",
+            "nur/hoteli ne golem 1.png"
+          ],
+          meta: ["2500 m²", "5200 m² ndërtim", "Lokalizuar në një zonë të kërkuar"],
+          description:
+            "Objekti ofron sipërfaqe të mëdha funksionale dhe potencial të lartë investimi, i pozicionuar në një zonë të kërkuar të Golemit me qasje të lehtë në plazh dhe infrastrukturë."
+        },
+        "13": {
+          title: "Shtëpia në Veternik",
+          location: "Prishtinë",
+          price: "550.000 €",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/shtepiaveternik.png"
+          ],
+          meta: ["740 m²", "9 ari truall", "Fletë poseduse"],
+          description:
+            "Shtëpi e organizuar në tre kate plus podrum 60 m², me sallon modern me kuzhinë, disa dhoma gjumi, banjo në çdo nivel, lavanderi dhe depo të dedikuara, hapësirë rekreative me bilardo dhe sallon me kamin në katin e sipërm."
+        },
+        "14": {
+          title: "Trualli në Llapnasellë",
+          location: "Prishtinë",
+          price: "7000 € / ari",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/trualli në Llapnasellë.png"
+          ],
+          meta: ["98 ari", "Pozitë e mirë gjeografike", "Fletë poseduse"],
+          description:
+            "Trualli është i lokalizuar në një zonë ku lejohet ndërtimi, ka qasje në magjistrale dhe është afër qendrës së qytetit."
+        },
+        "15": {
+          title: "Trualli në Prishtinë (Çagllavicë)",
+          location: "Çagllavicë, Prishtinë",
+          price: "10.000 € / ari",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/truallneprishtine.png"
+          ],
+          meta: ["Parcela të ndara", "Pozitë e mirë gjeografike", "Fletë poseduse"],
+          description:
+            "Hapësira gjendet në Çagllavicë, mbrapa Hotel Emerald, afër lagjes Qershia."
+        },
+        "16": {
+          title: "Trualli në Bardhosh",
+          location: "Bardhosh, Prishtinë",
+          price: "6000€/ ari",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/tokenebardhosh.png"
+          ],
+          meta: ["17 parcela", "Nga 5 ari", "Fletë poseduse"],
+          description:
+            "Investoni në natyrën dhe potencialin e kësaj toke, duke krijuar një ambient të qetë dhe të përshtatshëm për jetesë.Vendodhja fshati Bardhosh,Prishtine"
+        },
+        "17": {
+          title: "Shtepia ne Prishtine",
+          location: "Prishtine",
+          price: "Cmimi me marrreveshje",
+          badge: "Në shitje",
+          type: "sale",
+          images: [
+            "nur/shtepianebregunediellit.jpg",
+            "nur/shtepianebregunediellit2.jpg",
+            "nur/1.jpg",
+            "nur/2.jpg",
+            "nur/3.jpg",
+            "nur/4.jpg",
+            "nur/5.jpg",
+            "nur/6.jpg",
+            "nur/7.jpg",
+            "nur/8.jpg",
+            "nur/9.jpg",
+            "nur/10.jpg",
+            "nur/11.jpg",
+            "nur/12.jpg",
+            "nur/13.jpg",
+            "nur/15.jpg",
+            "nur/16.jpg",
+            "nur/17.jpg",
+            "nur/18.jpg",
+            "nur/19.jpg",
+            "nur/20.jpg",
+            "nur/21.jpg",
+            "nur/22.jpg",
+            "nur/23.jpg",
+            "nur/24.jpg",
+           
+
+
+          ],
+          meta: ["5 dhoma", "1 sallon dhe kuzhine", "450 m2"],
+          description:
+            "Shtëpi 405 m² në 4 ari, me 5 dhoma gjumi, sallon me kuzhinë, 3 terasa dhe ngrohje nën dysheme poshtë + radiatorë në katin e parë.Shtepia gjendet ne Bregun e Diellit"
+        },
+    
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      const data = properties[id];
+      const container = document.getElementById("details-content");
+
+      if (!data) {
+        container.innerHTML = `
+          <h1>Prona nuk u gjet</h1>
+          <p>Prona që po kërkoni nuk ekziston ose është hequr nga lista.</p>
+          <p><a href="index.html#properties">⬅ Kthehu te lista e pronave</a></p>
+        `;
+        return;
+      }
+
+      const images = data.images && data.images.length ? data.images : ["nur/logo.png"];
+
+      const thumbsHtml = images
+        .map(
+          (img, index) => `
+            <img 
+              src="${img}" 
+              alt="${data.title}" 
+              class="property-thumb ${index === 0 ? "active" : ""}"
+              data-index="${index}"
+            />
+          `
+        )
+        .join("");
+
+      const metaHtml = (data.meta || [])
+        .map(item => `<li>${item}</li>`)
+        .join("");
+
+      container.innerHTML = `
+        <div class="property-details-header">
+          <p><a href="index.html#properties">⬅ Kthehu te lista e pronave</a></p>
+          <div class="property-header-top">
+            <span class="property-badge ${data.type === "sale" ? "badge-sale" : "badge-rent"}">
+              ${data.badge}
+            </span>
+            <span class="property-id-header">#${id}</span>
+          </div>
+          <h1 class="property-details-title">${data.title}</h1>
+          <p class="property-details-location">${data.location}</p>
+        </div>
+
+        <div class="property-details-layout">
+          <div class="property-details-gallery">
+            <div class="property-details-image">
+              <button class="details-arrow prev" type="button">‹</button>
+
+              <img id="mainImage" src="${images[0]}" alt="${data.title}" />
+
+              <button class="details-arrow next" type="button">›</button>
+            </div>
+            <div class="property-thumbnails">
+              ${thumbsHtml}
+            </div>
+          </div>
+
+          <div class="property-details-info">
+            <div class="property-details-price">
+              <span>${data.price}</span>
+            </div>
+            <p class="property-details-description">
+              ${data.description}
+            </p>
+            <h3>Karakteristikat kryesore</h3>
+            <ul class="property-details-meta">
+              ${metaHtml}
+            <div class="property-details-contact">
+  <h3>Interesohuni për këtë pronë</h3>
+  <p>Na kontaktoni për më shumë informata, shikim nga afër apo ofertë konkrete.</p>
+
+  <ul class="contact-list">
+    <li>📍 Prishtinë, Kosovë</li>
+    <li>📞 +383 49-992-400</li>
+    <li>✉️ info@nur-realestate.com</li>
+    <li>
+      <a href="https://www.instagram.com/nur.realestate/" 
+         target="_blank" 
+         class="details-instagram">
+        <i class="fa-brands fa-instagram"></i>
+        @nur.realestate
+      </a>
+    </li>
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+      `;
+
+      // ============================
+      // SLIDERi
+      // ============================
+      const mainImg = document.getElementById("mainImage");
+      const thumbs = container.querySelectorAll(".property-thumb");
+      const prevBtn = container.querySelector(".details-arrow.prev");
+      const nextBtn = container.querySelector(".details-arrow.next");
+
+      if (mainImg && thumbs.length > 0) {
+        const imageSources = Array.from(thumbs).map(t => t.src);
+        let currentIndex = 0;
+
+        function showImage(index) {
+          if (index < 0) index = imageSources.length - 1;
+          if (index >= imageSources.length) index = 0;
+          currentIndex = index;
+
+          mainImg.src = imageSources[currentIndex];
+
+          thumbs.forEach(t => t.classList.remove("active"));
+          if (thumbs[currentIndex]) {
+            thumbs[currentIndex].classList.add("active");
+          }
+        }
+
+        thumbs.forEach((thumb, index) => {
+          thumb.addEventListener("click", () => {
+            showImage(index);
+          });
+        });
+
+        if (prevBtn) {
+          prevBtn.addEventListener("click", () => {
+            showImage(currentIndex - 1);
+          });
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener("click", () => {
+            showImage(currentIndex + 1);
+          });
+        }
+
+        // start
+        showImage(0);
+      }
+    });
+  </script>
+</body>
+
+</html>

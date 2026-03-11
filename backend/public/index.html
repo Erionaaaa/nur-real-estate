@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NUR Real Estate | Prona në Shitje & Me Qira</title>
+  <!-- FONT AWESOME PËR IKONA -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+  
+  <!-- CSS KRYESOR -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+  <img src="nur/logo3.png" alt="NUR Real Estate" class="logo-img" />
+  <span class="logo-text">NUR REAL ESTATE</span>
+</a>
+
+      <nav class="main-nav">
+        
+        <a href="#properties">Prona</a>
+        <a href="#why-us">Pse ne</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PROPERTIES SECTION -->
+  <section id="properties" class="properties">
+    <div class="container">
+
+      <!-- FILTRI 1: STATUSI -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">Të gjitha</button>
+        <button class="filter-btn" data-filter="sale">Në shitje</button>
+        <button class="filter-btn" data-filter="rent">Me qira</button>
+      </div>
+
+      <!-- FILTRI 2: KATEGORIA – IKONA -->
+      <div class="category-bar">
+        <div class="cat-item type-btn active" data-category="all">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Të gjitha</span>
+        </div>
+
+        <div class="cat-item type-btn" data-category="shtepi">
+          <i class="fa-solid fa-house"></i>
+          <span>Shtëpi</span>
+        </div>
+
+        <div class="cat-item type-btn" data-category="banese">
+          <i class="fa-solid fa-building"></i>
+          <span>Banesa</span>
+        </div>
+
+        <div class="cat-item type-btn" data-category="lokal">
+          <i class="fa-solid fa-store"></i>
+          <span>Lokale</span>
+        </div>
+
+        <div class="cat-item type-btn" data-category="troje">
+          <i class="fa-solid fa-tree"></i>
+          <span>Troje</span>
+        </div>
+
+        <div class="cat-item type-btn" data-category="villa">
+          <i class="fa-solid fa-house-chimney"></i>
+          <span>Villa</span>
+        </div>
+
+        <div class="cat-underline"></div>
+      </div>
+
+      <!-- GRID I PRONAVE -->
+      <div class="properties-grid">
+        <!-- Pronat do të ngarkohent dinamikisht nga API -->
+      </div><!-- /properties-grid -->
+
+    </div><!-- /container -->
+  </section><!-- /properties -->
+
+  <!-- WHY US -->
+  <section id="why-us" class="why-us">
+          <div class="property-body">
+            <h3 class="property-title">Shtëpi për Shitje në Novobërdë</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Novobërdë
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-ruler-combined"></i>4.8 ari</span>
+              <span><i class="fa-solid fa-couch"></i>Sallon</span>
+              <span><i class="fa-solid fa-bed"></i>3 dhoma gjumi</span>
+              <span><i class="fa-solid fa-toilet"></i>2 banjo</span>
+              <span><i class="fa-solid fa-door-open"></i>Paradhome</span>
+            </div>
+            <div class="property-footer">
+              <span class="property-price">115,000 €</span>
+              <button class="property-details-btn" data-id="1">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 - Lokali me qira në Dardani -->
+        <article class="property-card" data-type="rent" data-category="lokal" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/lokali.png" alt="Lokali me qira në Dardani" />
+            <span class="property-badge badge-rent">Me qira</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Lëshohet me qira hapësira</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Prishtinë, Dardani
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-maximize"></i>100 m² open space</span>
+              <span><i class="fa-solid fa-fire"></i>Ngrohje qendrore</span>
+              <span><i class="fa-solid fa-ruler-combined"></i>Rreth 115 m² neto</span>
+            </div>
+            <div class="property-footer">
+              <span class="property-price">700€/muaj</span>
+              <button class="property-details-btn" data-id="2">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+        
+
+        <!-- 3 - Toka në Orllan -->
+        <article class="property-card" data-type="sale" data-category="troje" data-city="Orllan">
+          <div class="property-image">
+            <img src="nur/15 ari.png" alt="Shitet toka në Orllan" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Shitet toka në Orllan</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Orllan, Batllavë
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-water"></i>Te liqeni i Batllavës</span>
+              <span><i class="fa-solid fa-ruler-combined"></i>15 ari</span>
+              <span><i class="fa-solid fa-file-signature"></i>Fletë poseduse</span>
+              <span><i class="fa-solid fa-seedling"></i>Për investim</span>
+            </div>
+            <div class="property-footer">
+              <span class="property-price">3,500 €/ari</span>
+              <button class="property-details-btn" data-id="3">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 - Banesë me qira -->
+        <article class="property-card" data-type="rent" data-category="banese" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/Banese.png" alt="Banesë me qira" />
+            <span class="property-badge badge-rent">Me qira</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Banesë me qira</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Prishtinë, Rr. Fehmi Agani
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-briefcase"></i>4 zyre + 1 banjo </span>
+              <span><i class="fa-solid fa-box-archive"></i>1 depo të vogël.</span>
+              <span><i class="fa-solid fa-box-archive"></i>parking për 1 veturë</span>
+            </div>
+            <div class="property-footer">
+              <span class="property-price">650€/muaj</span>
+              <button class="property-details-btn" data-id="4">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5 - Tokë në Mramor -->
+        <article class="property-card" data-type="sale" data-category="troje" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/toka.png" alt="Tokë për Shitje në Mramor" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Tokë për Shitje në Mramor</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Mramor, Prishtinë
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-ruler-combined"></i>120 ari</span>
+              <span><i class="fa-solid fa-faucet-drip"></i>Furnizim me ujë</span>
+              <span><i class="fa-solid fa-bolt"></i>Rrymë elektrike</span>
+              <span><i class="fa-solid fa-file-contract"></i>Dokumentacion i rregullt</span>
+            </div>
+            <div class="property-footer">
+              <span class="property-price">1,900€/ari</span>
+              <button class="property-details-btn" data-id="5">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6 - Dy villa në Makresh -->
+        <article class="property-card" data-type="sale" data-category="villa" data-city="Makresh">
+          <div class="property-image">
+            <img src="nur/villa.png" alt="Ofrohen dy villa për shitje" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Ofrohen për shitje dy villa</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Makresh, Artanë
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-ruler-combined"></i>5 ari truall</span>
+              <span><i class="fa-solid fa-maximize"></i>150 m²</span>
+              <span><i class="fa-solid fa-mountain"></i>Lartësi mbidetare 1000 m</span>
+            </div>
+            <div class="property-footer">
+              <span class="property-price">225,000€</span>
+              <button class="property-details-btn" data-id="6">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7 - Tokë në Kushevicë -->
+        <article class="property-card" data-type="sale" data-category="troje" data-city="Kushevicë">
+          <div class="property-image">
+            <img src="nur/225ari.png" alt="Tokë në shitje në Kushevicë" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Tokë në shitje</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Kushevicë
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-ruler-combined"></i>225 ari truall</span>
+              <span><i class="fa-solid fa-water"></i>3 min nga Liqeni i Batllavës</span>
+            </div>
+            <div class="property-footer">
+              <span class="property-price">800€/ari</span>
+              <button class="property-details-btn" data-id="7">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8 - 3 shtëpi në Veternik -->
+        <article class="property-card" data-type="sale" data-category="shtepi" data-city="Veternik">
+          <div class="property-image">
+            <img src="nur/3 shtepi.png" alt="Ofrohen 3 shtëpi në shitje në Veternik" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">3 shtëpi në shitje</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Veternik, Prishtinë
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-couch"></i>Sallon dhe kuzhinë</span>
+              <span><i class="fa-solid fa-bed"></i>4 dhoma gjumi</span>
+              <span><i class="fa-solid fa-warehouse"></i>Garazhë me 2 depo dhe 1 tualet</span>
+            </div>
+            <div class="property-footer">
+              <span class="property-price">Çmimi me marrëveshje</span>
+              <button class="property-details-btn" data-id="8">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 9 - 2 banesa në Rrugën A -->
+        <article class="property-card" data-type="sale" data-category="banese" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/dybanesa.png" alt="Ofrohen 2 banesa në shitje" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">2 banesa në shitje</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Rruga A, Prishtinë
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-maximize"></i>90 m²</span>
+              <span><i class="fa-solid fa-arrow-up-1-9"></i>Kati i 2 dhe 7</span>
+              <span><i class="fa-solid fa-sun"></i>Ndriçim i mjaftueshëm</span>
+            </div>
+            <div class="property-footer">
+              <span class="property-price">1,100€/m²</span>
+              <button class="property-details-btn" data-id="9">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 10 - Tokë në Shitje - Koliq -->
+        <article class="property-card" data-type="sale" data-category="troje" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/Tokë në Shitje - Koliq.png" alt="Tokë në Shitje - Koliq" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Tokë në Shitje - Koliq</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Koliq, Prishtinë
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-maximize"></i>Zona qetë </span>
+              <span><i class="fa-solid fa-arrow-up-1-9"></i>3-10 ari</span>
+              <span><i class="fa-solid fa-sun"></i> 2500€ për ari</span>
+            </div>
+            <div class="property-footer">
+              <span class="property-price">2500€/ari</span>
+              <button class="property-details-btn" data-id="10">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 11 - Tokë në Shitje - Makovc -->
+        <article class="property-card" data-type="sale" data-category="troje" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/rruges per makovc - Copy.png" alt="Tokë në Shitje - Makovc" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Tokë në Shitje - Makovc</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Makovc, Prishtinë
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-maximize"></i> 2 parcela</span>
+              <span><i class="fa-solid fa-arrow-up-1-9"></i> 83 ari</span>
+              <span><i class="fa-solid fa-sun"></i> lokacion të përshtatshëm</span>
+            </div>
+
+            <div class="property-footer">
+              <span class="property-price">3500€/ari</span>
+              <button class="property-details-btn" data-id="11">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 12 - Hoteli ne Golem -->
+        <article class="property-card" data-type="sale" data-category="shtepi" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/Hoteli ne golem.png" alt="Hotel ne shtije,Golem-Albania" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Hoteli ne shitje-Golem,Albania </h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Golem,Albania
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-ruler-combined"></i> 2500 m2</span>
+              <span><i class="fa-solid fa-arrow-up-1-9"></i> 5200 m2</span>
+              <span><i class="fa-solid fa-sun"></i>lokalizuar ne nje zone te pershtatshme</span>
+            </div>
+
+            <div class="property-footer">
+              <span class="property-price">2,000,000€.</span>
+              <button class="property-details-btn" data-id="12">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 13 - Shtepia ne Shitje Veternik -->
+        <article class="property-card" data-type="sale" data-category="shtepi" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/shtepiaveternik.png" alt="Shtepia ne shitje,Prishtine -Kosove" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Shtepia ne shitje</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Prishtine,Kosove
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-ruler-combined"></i> 740 m2</span>
+              <span><i class="fa-solid fa-arrow-up-1-9"></i> 9 ari </span>
+              <span><i class="fa-solid fa-sun"></i>flete poseduese</span>
+            </div>
+
+            <div class="property-footer">
+              <span class="property-price">550.000€.</span>
+              <button class="property-details-btn" data-id="13">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 14 - Trualli në Llapnasellë -->
+        <article class="property-card" data-type="sale" data-category="troje" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/trualli në Llapnasellë.png" alt="Trualli në Llapnasellë" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Trualli në shitje në Llapnasellë</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Prishtine,Kosove
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-ruler-combined"></i> 98 ari.</span>
+              <span><i class="fa-solid fa-arrow-up-1-9"></i> pozite te mire gjeografike </span>
+              <span><i class="fa-solid fa-sun"></i>flete poseduese</span>
+            </div>
+
+            <div class="property-footer">
+              <span class="property-price">7000€/ari.</span>
+              <button class="property-details-btn" data-id="14">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 15- Trualli në Prishtinë -->
+        <article class="property-card" data-type="sale" data-category="troje" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/truallneprishtine.png" alt="Trualli në Prishtinë" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Trualli në shitje në Prishtinë</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Prishtine,Kosove
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-ruler-combined"></i> e ndare ne parcela</span>
+              <span><i class="fa-solid fa-arrow-up-1-9"></i> pozite te mire gjeografike </span>
+              <span><i class="fa-solid fa-sun"></i>flete poseduese</span>
+            </div>
+
+            <div class="property-footer">
+              <span class="property-price">10.000€/ari.</span>
+              <button class="property-details-btn" data-id="15">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 16- Tokë në shitje në Bardhosh -->
+        <article class="property-card" data-type="sale" data-category="troje" data-city="Prishtinë">
+          <div class="property-image">
+            <img src="nur/tokenebardhosh.png" alt="Trualli në Bardhosh Prishtinë" />
+            <span class="property-badge badge-sale">Në shitje</span>
+          </div>
+          <div class="property-body">
+            <h3 class="property-title">Trualli në shitje Bardhosh</h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i> Prishtine,Kosove
+            </p>
+            <div class="property-meta">
+              <span><i class="fa-solid fa-ruler-combined"></i> 17 parcela</span>
+              <span><i class="fa-solid fa-vector-square"></i> nga 5 ari </span>
+              <span><i class="fa-solid fa-sun"></i>flete poseduese</span>
+            </div>
+
+            <div class="property-footer">
+              <span class="property-price">6000€/ari.</span>
+              <button class="property-details-btn" data-id="16">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+        <!---17- Shtepia ne shtije ne Bregun e Diellit -->
+        <article class="property-card" data-type="sale" data-category="shtepi" data-city="Prishtine">
+          <div class="property-image">
+            <img src="nur/shtepianebregunediellit.jpg" alt="Shtepia ne Bregun e diellit" />
+            <span class="property-bagde badge-sale">Ne shitje</span>
+          </div>
+          <div class="property-body">
+            <h4 class="property-title">Shtepia ne shitje ne Prishtine</h4>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i>Prishtine,Kosove
+              </p>
+              <div class="property-meta">
+            <span><i class="fa-solid fa-vector-square"></i>5 dhoma</span>
+            <span><i class="fa-solid fa-vector-square"></i>1 sallon dhe kuzhine</span>
+            <span><i class="fa-solid fa-sun"></i>450 m2</span> 
+           <span><i class="fa-solid fa-sun"></i>Cmimi me mareveshje</span> 
+
+            </div>
+          </div>
+
+          <div class="property-footer">
+            <span class="property-price">Cmimi me maareveshje </span>
+            <button class="property-details-btn" data-id="17">Shiko detajet</button>
+            </div>
+          </div>
+        </article>
+
+
+       
+
+      </div><!-- /properties-grid -->
+
+    </div><!-- /container -->
+  </section><!-- /properties -->
+
+  <!-- WHY US -->
+  <section id="why-us" class="why-us">
+    <div class="container">
+      <div class="section-header">
+        <h2>Pse NUR Real Estate</h2>
+        <p>Fokus vetëm në prona serioze, dokumentacion të pastër dhe proces transparent.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <h3>Filtrim i kujdesshëm</h3>
+          <p>Nuk postohet çdo gjë. Vetëm prona që i plotësojnë kriteret tona bazë.</p>
+        </div>
+        <div class="why-item">
+          <h3>Lokacione strategjike</h3>
+          <p>Fokus në lagje dhe kompleksa me potencial të lartë vlerësimi.</p>
+        </div>
+        <div class="why-item">
+          <h3>Proces i strukturuar</h3>
+          <p>Që nga kontakti i parë deri te nënshkrimi, çdo hap i qartë.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="container contact-inner">
+      <div>
+        <h2>Kontakt</h2>
+        <p>Na shkruani për shikim prone, vlerësim ose bashkëpunim.</p>
+        <ul class="contact-list">
+          <li>📍 Prishtinë, Kosovë</li>
+          <li>📞 +383 49-992-400</li>
+          <li>✉️ info@nur-realestate.com</li>
+        </ul>
+      </div>
+      <form class="contact-form" id="contact-form">
+        <input type="text" name="name" placeholder="Emri dhe mbiemri" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="text" name="phone" placeholder="Telefon" />
+        <textarea name="message" rows="4" placeholder="Për çfarë prone jeni të interesuar?"></textarea>
+        <button type="submit" class="btn btn-primary">Dërgo</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> NUR Real Estate. Të gjitha të drejtat e rezervuara.</p>
+    </div>
+    <a href="https://www.instagram.com/nur.realestate/" target="_blank" class="footer-instagram">
+  <i class="fa-brands fa-instagram"></i>
+</a>
+    <a href="admin-login.html" style="position: absolute; bottom: 10px; right: 10px; font-size: 10px; color: rgba(244, 212, 136, 0.3); text-decoration: none; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;" class="admin-link">[Admin]</a>
+
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Tregim i linkut të admin-it sa herë klikohej 3 herë në logo
+    let logoClicks = 0;
+    document.querySelector(".logo").addEventListener("click", () => {
+      logoClicks++;
+      if (logoClicks === 3) {
+        const adminLink = document.querySelector(".admin-link");
+        adminLink.style.opacity = "1";
+        adminLink.style.pointerEvents = "auto";
+        logoClicks = 0;
+      }
+    });
+  </script>
+</body>
+
+</html>

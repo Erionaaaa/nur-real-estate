@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login | NUR Real Estate</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #191925 0, #050509 55%, #020206 100%);
+      color: #f5f3ef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(17, 17, 24, 0.8);
+      border: 1px solid rgba(244, 212, 136, 0.24);
+      border-radius: 12px;
+      padding: 40px;
+      backdrop-filter: blur(14px);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-header h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: #f5f3ef;
+    }
+
+    .login-header p {
+      color: #9b9baa;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #f5f3ef;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(24, 24, 34, 0.6);
+      border: 1px solid rgba(244, 212, 136, 0.2);
+      border-radius: 6px;
+      color: #f5f3ef;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: rgba(244, 212, 136, 0.5);
+      background: rgba(24, 24, 34, 0.9);
+    }
+
+    .form-group input::placeholder {
+      color: #9b9baa;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #f4d488 0%, #f0c860 100%);
+      color: #050509;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(244, 212, 136, 0.3);
+    }
+
+    .btn-login:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      display: none;
+      padding: 12px;
+      background: rgba(220, 38, 38, 0.1);
+      border: 1px solid rgba(220, 38, 38, 0.3);
+      border-radius: 6px;
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #9b9baa;
+    }
+
+    .login-footer a {
+      color: #f4d488;
+      text-decoration: none;
+    }
+
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>Admin Panel</h1>
+      <p>NUR Real Estate</p>
+    </div>
+
+    <div class="error-message" id="errorMsg"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Emri i përdoruesit</label>
+        <input type="text" id="username" placeholder="admin" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Fjalëkalimi</label>
+        <input type="password" id="password" placeholder="••••••••" required />
+      </div>
+
+      <button type="submit" class="btn-login">Hyr në Dashboard</button>
+    </form>
+
+    <div class="login-footer">
+      <p>© 2025 NUR Real Estate. Të drejtat e rezervuara.</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+
+      // Thjeshtë validim lokal - username: admin, password: admin123
+      // NB: Në prodhim, duhet të përdorni backend authentication
+      if (username === "admin" && password === "admin123") {
+        // Ruaj token në localStorage
+        localStorage.setItem("adminToken", "admin_token_" + Date.now());
+        localStorage.setItem("adminUser", username);
+        
+        errorMsg.classList.remove("show");
+        window.location.href = "admin-dashboard.html";
+      } else {
+        errorMsg.textContent = "Emri i përdoruesit ose fjalëkalimi janë të gabuar!";
+        errorMsg.classList.add("show");
+      }
+    });
+  </script>
+</body>
+</html>
