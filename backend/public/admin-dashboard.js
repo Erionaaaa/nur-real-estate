@@ -1,15 +1,3 @@
-// Always use backend port (avoid Live Server / file://)
-(() => {
-  const isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1";
-  const isFile = location.protocol === "file:";
-  const wrongPort = isLocal && location.port && location.port !== "5000";
-
-  if (isFile || wrongPort) {
-    const target = `http://localhost:5000${location.pathname.endsWith("/") ? "/admin-dashboard.html" : location.pathname}${location.search}${location.hash}`;
-    location.replace(target);
-  }
-})();
-
 // Kontroll i authentication
 function checkAuth() {
   const token = localStorage.getItem("adminToken");

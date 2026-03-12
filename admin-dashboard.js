@@ -1,16 +1,4 @@
-// Always use backend port (avoid Live Server / file://)
-(() => {
-  const isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1";
-  const isFile = location.protocol === "file:";
-  const wrongPort = isLocal && location.port && location.port !== "5000";
-
-  if (isFile || wrongPort) {
-    const target = `http://localhost:5000${location.pathname.endsWith("/") ? "/admin-dashboard.html" : location.pathname}${location.search}${location.hash}`;
-    location.replace(target);
-  }
-})();
-
-// Kontroll i authentication
+// Kontrollimi i autentikimit qetuu
 function checkAuth() {
   const token = localStorage.getItem("adminToken");
   if (!token) {
@@ -20,12 +8,12 @@ function checkAuth() {
   return true;
 }
 
-// Nëse nuk ka token, ridrejtoj në login
+// Nese nuk ka token me i riderjtu ne login prap
 if (!checkAuth()) {
   throw new Error("Not authenticated");
 }
 
-// Të dhënat globale
+// Te dhenat e pronave
 let allProperties = [];
 let allContacts = [];
 let currentEditId = null;

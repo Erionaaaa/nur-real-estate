@@ -170,17 +170,6 @@
   </div>
 
   <script>
-    // Always use backend port (avoid Live Server / file://)
-    (function () {
-      const isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1";
-      const isFile = location.protocol === "file:";
-      const wrongPort = isLocal && location.port && location.port !== "5000";
-      if (isFile || wrongPort) {
-        const target = `http://localhost:5000/admin-login.html${location.search}${location.hash}`;
-        location.replace(target);
-      }
-    })();
-
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
