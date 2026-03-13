@@ -29,6 +29,16 @@ function getAdminHeaders() {
   return token ? { "x-admin-token": token } : {};
 }
 
+function getRequestErrorMessage(status, fallbackText) {
+  if (status === 401) {
+    return "Sesioni admin ka skaduar. Ju lutem hyni perseri.";
+  }
+  if (status === 404) {
+    return "API admin nuk u gjet. Sigurohu qe backend eshte aktiv ne localhost:5000.";
+  }
+  return fallbackText;
+}
+
 // Elements
 const propertyModal = document.getElementById("propertyModal");
 const propertyForm = document.getElementById("propertyForm");
@@ -103,12 +113,18 @@ async function loadProperties() {
     const response = await fetch(`${API_BASE}/api/admin/properties`, {
       headers: { ...getAdminHeaders() }
     });
-    if (!response.ok) throw new Error("Network error");
+    if (!response.ok) {
+      throw new Error(getRequestErrorMessage(response.status, "Gabim ne ngarkimin e pronave"));
+    }
     allProperties = await response.json();
     renderPropertiesTable();
   } catch (err) {
     console.error("Error loading properties:", err);
-    propertiesTable.innerHTML = `<tr><td colspan="6">Gabim në ngarkimin e të dhënave</td></tr>`;
+    const msg =
+      err instanceof TypeError
+        ? "Nuk u lidh me serverin. Ndeze backend-in ne localhost:5000."
+        : (err.message || "Gabim ne ngarkimin e te dhenave");
+    propertiesTable.innerHTML = `<tr><td colspan="6">${msg}</td></tr>`;
   }
 }
 
@@ -149,12 +165,18 @@ async function loadContacts() {
     const response = await fetch(`${API_BASE}/api/admin/contacts`, {
       headers: { ...getAdminHeaders() }
     });
-    if (!response.ok) throw new Error("Network error");
+    if (!response.ok) {
+      throw new Error(getRequestErrorMessage(response.status, "Gabim ne ngarkimin e kontakteve"));
+    }
     allContacts = await response.json();
     renderContactsTable();
   } catch (err) {
     console.error("Error loading contacts:", err);
-    contactsTable.innerHTML = `<tr><td colspan="6">Gabim në ngarkimin e të dhënave</td></tr>`;
+    const msg =
+      err instanceof TypeError
+        ? "Nuk u lidh me serverin. Ndeze backend-in ne localhost:5000."
+        : (err.message || "Gabim ne ngarkimin e te dhenave");
+    contactsTable.innerHTML = `<tr><td colspan="6">${msg}</td></tr>`;
   }
 }
 
